@@ -1,0 +1,51 @@
+<div class="map-container">
+    <div class="map-frame">
+        <div id="map" (click)="map_clicked()"></div>
+    </div>
+</div>
+
+<div class="entry-box-frame">
+    <form (submit)="check_country()">
+        <input
+            id="entry-box"
+            type = "text"
+            name = "curr_country"
+            placeholder = "Enter country..."
+            spellcheck = "true"
+            maxlength="64"
+            size="25"
+            autofocus
+
+            [(ngModel)] = "curr_country"
+            (input)="check_country()"
+        />
+    </form>
+</div>
+
+<div class="reset-map-zoom">
+    <button id="reset-map-zoom-button" (click)="reset_map_zoom()" title="Reset Zoom">
+        Reset zoom
+    </button>
+</div>
+
+<div class="toggle-names">
+    <button id="toggle-name-button" (click)="toggle_names()" title="Toggle names on/off">
+        Names
+    </button>
+</div>
+
+<div class="toggle-markers">
+    <button id="toggle-markers-button" (click)="toggle_markers()" title="Toggle markers on/off">
+        Markers
+    </button>
+</div>
+
+<div class="give-up">
+    <button mat-raised-button id="give-up-button" (click)="open_give_up_dialog()" title="Give up?">
+        Give up?
+    </button>
+</div>
+
+<div class="stats">
+    {{ num_countries_guessed }} / {{ countries.length }}
+</div>

@@ -1,0 +1,119 @@
+/* map / leaflet */
+.map-container
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 5px;
+}
+.map-frame
+{
+    border: 2px solid black;
+    height: 100%;
+}
+#map
+{
+    height: 100%;
+}
+
+.leaflet-container
+{
+    background-color: #99C7FF;
+}
+
+/* entry box */
+.entry-box-frame
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    /* top: 2%; */
+    /* left: 3%; */
+    top: 20px;
+    left: 60px;
+}
+#entry-box
+{
+    font-size: 1.25em;
+}
+
+/* reset zoom button */
+.reset-map-zoom
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    top: 90px;
+    left: 11px;
+}
+.reset-map-zoom-button
+{
+    text-align: center;
+}
+
+/* toggle-names button */
+.toggle-names
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    top: 120px;
+    left: 11px;
+}
+.toggle-names-button
+{
+    text-align: center;
+}
+
+/* toggle-markers button */
+.toggle-markers
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    top: 150px;
+    left: 11px;
+}
+.toggle-markers-button
+{
+    text-align: center;
+}
+
+/* give-up button */
+.give-up
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    top: 180px;
+    left: 11px;
+}
+.give-up-button
+{
+    text-align: center;
+}
+
+/* guessed countries stats */
+.stats
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    font-size: 1.25em;
+    top: 20px;
+    right: 25px;
+
+    /* background */
+    padding: 10px;
+    background: #FF6666;
+    opacity: 0.75;
+    background-clip: border-box;
+}
