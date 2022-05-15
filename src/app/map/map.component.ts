@@ -10,18 +10,7 @@ import import_countries from './../../assets/countries.json';
 
 // Kazakhstan: baikonur cosmodrome
 
-// Style buttons - chrome/firefox
 
-// Delete TEMP country in JSON
-
-// Afghanistan circle country???
-
-// Only english letters in input??
-
-
-// Style ocean colour with bec
-
-// style stats
 
 // Give up button confirmation
 
@@ -29,8 +18,6 @@ import import_countries from './../../assets/countries.json';
 // Show hints AFTER confirmation clicks
 // button to toggle names for guessed/unguessed after give_up?
 // Perhaps better way to toggle icons instead of create/delete every time???
-
-// Add to GitHub
 
 // Use ViewChild instead of HTML get-element-by-ider
 
@@ -368,7 +355,7 @@ export class MapComponent implements OnInit
     }
 
     // Reset map zoom and re-focus on input box
-    reset_map_zoom(): void
+    reset_zoom(): void
     {
         this.map.setView(this.centroid, this.default_zoom);
 

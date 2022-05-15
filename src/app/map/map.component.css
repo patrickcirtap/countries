@@ -20,7 +20,7 @@
 
 .leaflet-container
 {
-    background-color: #99C7FF;
+    background-color: #D3E7FF;
 }
 
 /* entry box */
@@ -40,19 +40,31 @@
     font-size: 1.25em;
 }
 
+/* all buttons */
+.user-button
+{
+    text-align: center;
+    font-size: 13px;
+
+    background-color: #FFFFFF;
+    color: #000000;
+    cursor: pointer;
+
+    padding: 3px;
+    border-radius: 5px;
+    width: 80px;
+    height: 25px;
+}
+
 /* reset zoom button */
-.reset-map-zoom
+.reset-zoom
 {
     /* for being "above" map component */
     position: absolute;
     z-index: 1001;
 
-    top: 90px;
+    top: 95px;
     left: 11px;
-}
-.reset-map-zoom-button
-{
-    text-align: center;
 }
 
 /* toggle-names button */
@@ -62,12 +74,8 @@
     position: absolute;
     z-index: 1001;
 
-    top: 120px;
+    top: 130px;
     left: 11px;
-}
-.toggle-names-button
-{
-    text-align: center;
 }
 
 /* toggle-markers button */
@@ -77,12 +85,8 @@
     position: absolute;
     z-index: 1001;
 
-    top: 150px;
+    top: 165px;
     left: 11px;
-}
-.toggle-markers-button
-{
-    text-align: center;
 }
 
 /* give-up button */
@@ -92,12 +96,8 @@
     position: absolute;
     z-index: 1001;
 
-    top: 180px;
+    top: 200px;
     left: 11px;
-}
-.give-up-button
-{
-    text-align: center;
 }
 
 /* guessed countries stats */
@@ -110,10 +110,4 @@
     font-size: 1.25em;
     top: 20px;
     right: 25px;
-
-    /* background */
-    padding: 10px;
-    background: #FF6666;
-    opacity: 0.75;
-    background-clip: border-box;
 }
