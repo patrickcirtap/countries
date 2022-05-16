@@ -7,7 +7,6 @@ import import_countries from './../../assets/countries.json';
 // 1: TURN ON: Reload page - alert
 
 
-
 // Kazakhstan: baikonur cosmodrome
 
 
