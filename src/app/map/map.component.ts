@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import import_countries from './../../assets/countries.json';
 
@@ -15,7 +15,7 @@ import import_countries from './../../assets/countries.json';
 // button to toggle names for guessed/unguessed after give_up?
 // Perhaps better way to toggle icons instead of create/delete every time???
 
-// Use ViewChild instead of HTML get-element-by-ider
+// README
 
 // 3. Look into debounce to optimising type delay checking
 
@@ -29,7 +29,7 @@ import import_countries from './../../assets/countries.json';
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit
+export class MapComponent implements AfterViewInit
 {
     // Map
     public map!: L.Map;
@@ -43,6 +43,11 @@ export class MapComponent implements OnInit
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;
+    // For accessing the HTML buttons
+    @ViewChild("entryboxRef") entryboxRef!: ElementRef;
+    @ViewChild("togglenamesRef") togglenamesRef!: ElementRef;
+    @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
+    @ViewChild("giveupRef") giveupRef!: ElementRef;
 
     constructor() { }
 
@@ -63,9 +68,10 @@ export class MapComponent implements OnInit
         });
 
         // If map zoomed '+' or '-': re-focus on input box
+        var entryboxRef = this.entryboxRef.nativeElement;
         this.map.on('zoom', function()
         {
-            (<HTMLInputElement>document.getElementById("entry-box")).focus();
+            entryboxRef.focus();
         });
 
         ////////////////////////////////////////////////////////////////////////////
@@ -96,8 +102,11 @@ export class MapComponent implements OnInit
         }).addTo(this.map);
     }
 
-    ngOnInit(): void
+    ngAfterViewInit(): void
     {
+        // Focus on input box on load
+        this.entryboxRef.nativeElement.focus();
+
         this.initMap();
     }
 
@@ -268,7 +277,7 @@ export class MapComponent implements OnInit
 
         this.names_on = !this.names_on;
 
-        (<HTMLInputElement>document.getElementById("entry-box")).focus();
+        this.entryboxRef.nativeElement.focus();
     }
     
     add_marker(country: any): void
@@ -315,7 +324,7 @@ export class MapComponent implements OnInit
 
         this.markers_on = !this.markers_on;
 
-        (<HTMLInputElement>document.getElementById("entry-box")).focus();
+        this.entryboxRef.nativeElement.focus();
     }
 
     open_give_up_dialog(): void
@@ -346,8 +355,8 @@ export class MapComponent implements OnInit
             }
         }
 
-        (<HTMLInputElement>document.getElementById("entry-box")).disabled = true;
-        (<HTMLInputElement>document.getElementById("give-up-button")).disabled = true;
+        this.entryboxRef.nativeElement.disabled = true;
+        this.giveupRef.nativeElement.disabled = true;
     }
 
     // Reset map zoom and re-focus on input box
@@ -355,13 +364,13 @@ export class MapComponent implements OnInit
     {
         this.map.setView(this.centroid, this.default_zoom);
 
-        (<HTMLInputElement>document.getElementById("entry-box")).focus();
+        this.entryboxRef.nativeElement.focus();
     }
 
     // Re-focus on input box if map clicked
     map_clicked(): void
     {
-        (<HTMLInputElement>document.getElementById("entry-box")).focus();
+        this.entryboxRef.nativeElement.focus();
     }
 
     // Confirmation before user refreshes
