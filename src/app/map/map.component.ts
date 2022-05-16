@@ -15,8 +15,6 @@ import import_countries from './../../assets/countries.json';
 // button to toggle names for guessed/unguessed after give_up?
 // Perhaps better way to toggle icons instead of create/delete every time???
 
-// README
-
 // 3. Look into debounce to optimising type delay checking
 
 // 6. Look into map zooming levels / speed - may be causing weird delays and visuals
@@ -64,7 +62,7 @@ export class MapComponent implements AfterViewInit
             wheelPxPerZoomLevel: 100,
             // Can't scroll past [North-east, South-west]
             maxBounds: [[85, 180], [-85, -180]],
-            attributionControl: false
+            attributionControl: true
         });
 
         // If map zoomed '+' or '-': re-focus on input box
