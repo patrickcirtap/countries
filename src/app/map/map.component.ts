@@ -10,6 +10,11 @@ import import_countries from './../../assets/countries.json';
 
 // Give up button confirmation
 
+// Fonts
+
+// Hamburger user buttons
+// GToggle buttons - toggle symbol/switch
+
 
 // Show hints AFTER confirmation clicks
 // button to toggle names for guessed/unguessed after give_up?
@@ -283,7 +288,7 @@ export class MapComponent implements AfterViewInit
         var icon = L.icon({
             iconUrl: './../../assets/marker.png',
             iconSize: [28, 45],
-            iconAnchor: [10, 37]
+            iconAnchor: [13, 40]
         });
         country.properties.marker = L.marker(country.properties.center_coords, {icon: icon}).addTo(this.map);
     }
