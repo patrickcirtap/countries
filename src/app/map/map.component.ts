@@ -334,26 +334,14 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
     }
 
-    // open_give_up_dialog(): void
-    // {
-    //     this.give_up();
-        
-    //     // if(confirm("Give up - Are you sure?"))
-    //     // {
-    //     //     this.give_up();
-    //     // }
-    // }
-
     open_giveup_dialog(): void
     {
-        console.log("GIVE UP BUTTON PRESSED");
-
         // GiveupDialog component will be the popup,
         // Second param could be data if needed
         let giveup_dialog_ref = this.dialog.open(GiveupDialogComponent);
 
         giveup_dialog_ref.afterClosed().subscribe(
-            result => {
+            (result: any) => {
                 if(result == 1)
                 {
                     this.give_up();
