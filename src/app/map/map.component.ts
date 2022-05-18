@@ -13,8 +13,7 @@ import import_countries from './../../assets/countries.json';
 
 
 // Style popup colour with bec with proper ocean background
-
-// Give up button confirmation
+// Style give up confirmation dialog with bec
 
 // Hamburger user buttons
 // Toggle buttons - toggle symbol/switch
@@ -334,24 +333,30 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
     }
 
+    // Create popup dialog of GiveupDialog component
     open_giveup_dialog(): void
     {
-        // GiveupDialog component will be the popup,
-        // Second param could be data if needed
-        let giveup_dialog_ref = this.dialog.open(GiveupDialogComponent);
+        // Only 1 dialog can be open at a time
+        if(this.dialog.openDialogs.length == 0)
+        {
+            let giveup_dialog_ref = this.dialog.open(GiveupDialogComponent, {
+                width: "430px",
+                height: "200px"
+            });
 
-        giveup_dialog_ref.afterClosed().subscribe(
-            (result: any) => {
-                if(result == 1)
-                {
-                    this.give_up();
+            giveup_dialog_ref.afterClosed().subscribe(
+                (result: boolean) => {
+                    if(result == true)
+                    {
+                        this.give_up();
+                    }
+                    else
+                    {
+                        this.entryboxRef.nativeElement.focus();
+                    }
                 }
-                else
-                {
-                    this.entryboxRef.nativeElement.focus();
-                }
-            }
-        );
+            );
+        }
     }
 
     // Give up: show remaining un-guessed countries and disable user elements
