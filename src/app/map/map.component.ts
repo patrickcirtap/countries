@@ -5,15 +5,16 @@ import import_countries from './../../assets/countries.json';
 
 // TODO:
 // 1: TURN ON: Reload page - alert
+// Remove big_ and test_ JSON files
 
 
+
+// Style popup colour with bec with proper ocean background
 
 // Give up button confirmation
 
-// Fonts
-
 // Hamburger user buttons
-// GToggle buttons - toggle symbol/switch
+// Toggle buttons - toggle symbol/switch
 
 
 // Show hints AFTER confirmation clicks

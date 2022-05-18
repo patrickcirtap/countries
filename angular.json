@@ -26,7 +26,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/assets/countries.json",
-              "src/assets/marker.png"
+              "src/assets/marker.png",
+              "src/assets/favicon.png"
             ],
             "styles": [
               "src/styles.css"

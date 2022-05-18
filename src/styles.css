@@ -1,11 +1,25 @@
 @import "~leaflet/dist/leaflet.css";
 
-/* I don't know why the divIcon style needs to be in global... */
-/* stackoverflow.com/questions/55133973/ */
+/* These leaflet-specific styles need to be in global CSS */
+/* More detail: stackoverflow.com/questions/55133973/     */
 .country-name
 {
     color: #000000;
     font-size: 1em;
     font-weight: bold;
     text-align: center;
+}
+
+.leaflet-popup-content, .leaflet-popup-content-wrapper, .leaflet-popup-tip
+{
+    /* popup text */
+    color: #000000;
+
+    /* popup box */
+    background: #BAFF99;
+}
+
+html *
+{
+    font-family: Arial, sans-serif;
 }
