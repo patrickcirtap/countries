@@ -1,5 +1,8 @@
 import { Component, OnInit, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import {MatDialog} from '@angular/material/dialog';
+import {GiveupDialogComponent} from './../giveup-dialog/giveup-dialog.component';
+
 import import_countries from './../../assets/countries.json';
 
 
@@ -53,7 +56,7 @@ export class MapComponent implements AfterViewInit
     @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
 
-    constructor() { }
+    constructor(public dialog: MatDialog) {}
 
     initMap()
     {
@@ -331,14 +334,36 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
     }
 
-    open_give_up_dialog(): void
-    {
-        this.give_up();
+    // open_give_up_dialog(): void
+    // {
+    //     this.give_up();
         
-        // if(confirm("Give up - Are you sure?"))
-        // {
-        //     this.give_up();
-        // }
+    //     // if(confirm("Give up - Are you sure?"))
+    //     // {
+    //     //     this.give_up();
+    //     // }
+    // }
+
+    open_giveup_dialog(): void
+    {
+        console.log("GIVE UP BUTTON PRESSED");
+
+        // GiveupDialog component will be the popup,
+        // Second param could be data if needed
+        let giveup_dialog_ref = this.dialog.open(GiveupDialogComponent);
+
+        giveup_dialog_ref.afterClosed().subscribe(
+            result => {
+                if(result == 1)
+                {
+                    this.give_up();
+                }
+                else
+                {
+                    this.entryboxRef.nativeElement.focus();
+                }
+            }
+        );
     }
 
     // Give up: show remaining un-guessed countries and disable user elements

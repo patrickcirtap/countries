@@ -18,4 +18,9 @@ Dependencies:
 ```
 $ npm install leaflet
 $ npm install -D @types/leaflet
+
+$ ng add @angular/material
+
+???
+$ npm install --save @angular/material
 ```
