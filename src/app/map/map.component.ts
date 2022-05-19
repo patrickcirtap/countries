@@ -151,13 +151,44 @@ export class MapComponent implements AfterViewInit
         };
     }
 
+    // Convert a country name to a "hint version", where
+    // First letter of each word in the name is revealed. Eg:
+    // Saint Kitts and Nevis becomes
+    // S---- K---- a-- N----
+    hint_name(orig_name: string): string
+    {
+        var hint_name = "<b>"+orig_name[0]+"</b>";
+
+        for(let i = 1; i < orig_name.length; i++)
+        {
+            // first letter of current word in name
+            if(orig_name[i-1] == ' ')
+            {
+                hint_name = hint_name.concat("<b>"+orig_name[i]+"</b>");
+            }
+            // space in name
+            else if(orig_name[i] == ' ')
+            {
+                hint_name = hint_name.concat(" ");
+            }
+            // non-first-word letter
+            else
+            {
+                hint_name = hint_name.concat(" - ");
+            }
+        }
+
+        return hint_name;
+    }
+
     // when an unguessed country is clicked, show hints in popup
     country_clicked_init = (country: any, layer: any) =>
     {
-        const first_letter = "<i>First letter</i>: " + "<b>"+country.properties.ADMIN[0]+"</b>";
+        const hint_name = this.hint_name(country.properties.ADMIN);
+        // const first_letter = "<i>First letter</i>: " + "<b>"+country.properties.ADMIN[0]+"</b>";
         const capital_city = "<i>Capital city</i>: " + "<b>"+country.properties.capital_city+"</b>";
 
-        layer.bindPopup(first_letter + "<br>" + capital_city);
+        layer.bindPopup(hint_name + "<br>" + capital_city);
     }
 
     // when a guessed country is clicked, show name and capital city in popup
@@ -218,7 +249,7 @@ export class MapComponent implements AfterViewInit
     // unless the "debounce_delay" amount of time has passed
     input_received = this.debounce(() => this.check_country());
 
-    debounce(fn_to_run: Function)
+    debounce(fn_to_run: Function): Function
     {
         let timeout: any;
         return () => {
