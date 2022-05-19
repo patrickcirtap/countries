@@ -23,11 +23,7 @@ import import_countries from './../../assets/countries.json';
 // button to toggle names for guessed/unguessed after give_up?
 // Perhaps better way to toggle icons instead of create/delete every time???
 
-// 3. Look into debounce to optimising type delay checking
-
 // 6. Look into map zooming levels / speed - may be causing weird delays and visuals
-
-// 10. Why divIcon style needs to be in global css? stackoverflow.com/questions/55133973/
 
 
 @Component({
@@ -54,6 +50,8 @@ export class MapComponent implements AfterViewInit
     @ViewChild("togglenamesRef") togglenamesRef!: ElementRef;
     @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
+    // Debounce delay before checking user input (milliseconds)
+    debounce_delay: number = 250;
 
     constructor(public dialog: MatDialog) {}
 
@@ -216,10 +214,24 @@ export class MapComponent implements AfterViewInit
         });
     }
 
+    // input_received calls the debounce function which won't run check_country()
+    // unless the "debounce_delay" amount of time has passed
+    input_received = this.debounce(() => this.check_country());
+
+    debounce(fn_to_run: Function)
+    {
+        let timeout: any;
+        return () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => { fn_to_run.apply(this); }, this.debounce_delay);
+        };
+    }
+
     check_country(): void
     {
         // remove white space from start/end of entered text
         this.curr_country = this.curr_country.trim();
+
         // convert entered word to lowercase for comparisons
         var curr_country: string = this.curr_country.toLowerCase();
 

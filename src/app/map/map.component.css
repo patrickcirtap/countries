@@ -45,6 +45,7 @@
     font-size: 13px;
 
     background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
     color: #000000;
     cursor: pointer;
 
@@ -103,7 +104,7 @@
     position: absolute;
     z-index: 1001;
 
-    font-size: 1.25em;
+    font-size: 1.75em;
     top: 25px;
     right: 25px;
 }
