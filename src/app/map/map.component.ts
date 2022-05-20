@@ -256,11 +256,9 @@ export class MapComponent implements AfterViewInit
 
     check_country(): void
     {
-        // remove white space from start/end of entered text
-        this.curr_country = this.curr_country.trim();
-
-        // convert entered word to lowercase for comparisons
-        var curr_country: string = this.curr_country.toLowerCase();
+        // convert entered word to lowercase for comparisons,
+        // and remove white space from start/end of entered text
+        const curr_country: string = this.curr_country.toLowerCase().trim();
 
         // for each country
         for (let i = 0; i < this.countries.length; i++)
@@ -286,6 +284,8 @@ export class MapComponent implements AfterViewInit
 
                     // Mark country on map - param: 0 for "guessed style"
                     this.style_country(this.countries[i], 0);
+
+                    return;
                 }
             }
         }
