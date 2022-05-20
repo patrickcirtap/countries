@@ -25,6 +25,11 @@ $ ng add @angular/material
 $ npm install --save @angular/material
 ```
 
+Due to the large size of `countries.json`, the following command needs to be run to allocate more memory (3GB) to Angular for building:
+```
+$ export NODE_OPTIONS="--max-old-space-size=3072"
+```
+
 ## TODO / Look into:
 
 1. Change hint popup from showing `hint_name` and `capital_city` immediately, to showing "*Click for hint*" message and then displaying individual hints on click.
