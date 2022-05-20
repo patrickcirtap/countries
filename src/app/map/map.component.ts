@@ -19,10 +19,6 @@ import import_countries from './../../assets/countries.json';
 // Toggle buttons - toggle symbol/switch
 
 
-// Show hints AFTER confirmation clicks
-// button to toggle names for guessed/unguessed after give_up?
-// Perhaps better way to toggle icons instead of create/delete every time???
-
 // 6. Look into map zooming levels / speed - may be causing weird delays and visuals
 
 
@@ -45,13 +41,13 @@ export class MapComponent implements AfterViewInit
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;
+    // Debounce delay before checking user input (milliseconds)
+    debounce_delay: number = 250;
     // For accessing the HTML buttons
     @ViewChild("entryboxRef") entryboxRef!: ElementRef;
     @ViewChild("togglenamesRef") togglenamesRef!: ElementRef;
     @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
-    // Debounce delay before checking user input (milliseconds)
-    debounce_delay: number = 250;
 
     constructor(public dialog: MatDialog) {}
 
