@@ -33,7 +33,7 @@ $ export NODE_OPTIONS="--max-old-space-size=3072"
 ## TODO / Look into:
 
 1. Change hint popup from showing `hint_name` and `capital_city` immediately, to showing "*Click for hint*" message and then displaying individual hints on click.
-  - Haven't been able to get this to work because it seems that Leaflet popups are built initially when the map is made, and are then toggled on/off, always displaying the original popup.
+  - Haven't been able to get this to work because it seems that Leaflet popups are built initially when the map is made, and are then toggled on/off, always displaying the originally styled popup.
   - Even dynamic CSS (on hover) doesn't change the appearance.
 
 
