@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import {MatDialog} from '@angular/material/dialog';
 import {GiveupDialogComponent} from './../giveup-dialog/giveup-dialog.component';
