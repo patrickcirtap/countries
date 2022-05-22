@@ -13,11 +13,13 @@
 .leaflet-popup-content, .leaflet-popup-content-wrapper, .leaflet-popup-tip
 {
     /* popup text */
-    color: #000000;
+    color: #FFFFFF;
 
     /* popup box */
-    background: #BAFF99;
+    background: #000000;
 }
+
+
 
 html *
 {

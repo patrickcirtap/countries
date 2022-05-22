@@ -38,6 +38,7 @@ export class MapComponent implements AfterViewInit
     public curr_country: string = "";
     public countries: any = import_countries;
     public num_countries_guessed: number = 0;
+    // markers for unguessed countries
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;
@@ -404,6 +405,7 @@ export class MapComponent implements AfterViewInit
         this.given_up = true;
         this.markers_on = true;
 
+        // add remaining (unguessed) countries
         for(let i = 0; i < this.countries.length; i++)
         {
             if(this.countries[i].properties.guessed == false)
@@ -413,6 +415,16 @@ export class MapComponent implements AfterViewInit
 
                 // Style country on map - param: 1 for "give-up" style
                 this.style_country(this.countries[i], 1);
+            }
+        }
+
+        // re-add guessed countries so their borders are above unguessed countries
+        for(let i = 0; i < this.countries.length; i++)
+        {
+            if(this.countries[i].properties.guessed)
+            {
+                // Style country on map - param: 0 for "guessed-up" style
+                this.style_country(this.countries[i], 0);
             }
         }
 
