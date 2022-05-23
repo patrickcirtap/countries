@@ -29,4 +29,5 @@ html *
 .mat-dialog-container
 {
     border-radius: 20px !important;
+    border: 2px solid #AAAAAA;
 }

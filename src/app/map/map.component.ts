@@ -19,9 +19,6 @@ import import_countries from './../../assets/countries.json';
 // Toggle buttons - toggle symbol/switch
 
 
-// 6. Look into map zooming levels / speed - may be causing weird delays and visuals
-
-
 @Component({
     selector: 'app-map',
     templateUrl: './map.component.html',
@@ -50,7 +47,7 @@ export class MapComponent implements AfterViewInit
     @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
 
-    constructor(public dialog: MatDialog) {}
+    constructor(public giveup_dialog: MatDialog) {}
 
     initMap()
     {
@@ -377,9 +374,9 @@ export class MapComponent implements AfterViewInit
     open_giveup_dialog(): void
     {
         // Only 1 dialog can be open at a time
-        if(this.dialog.openDialogs.length == 0)
+        if(this.giveup_dialog.openDialogs.length == 0)
         {
-            let giveup_dialog_ref = this.dialog.open(GiveupDialogComponent, {
+            let giveup_dialog_ref = this.giveup_dialog.open(GiveupDialogComponent, {
                 width: "430px",
                 height: "200px"
             });
