@@ -11,9 +11,7 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
-// ERROR WITH CHAD???
-
-// Check each country popup is big enough for next font size
+// Countries with quote marks ( ' ) in name / capital city cause error when revealing the hint
 
 // Re-clicking hint shows console error?
 
