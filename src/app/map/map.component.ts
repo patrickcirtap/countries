@@ -11,7 +11,9 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
-// Popup width needs to match length of name/capital
+// ERROR WITH CHAD???
+
+// Check each country popup is big enough for next font size
 
 // Re-clicking hint shows console error?
 
@@ -178,56 +180,61 @@ export class MapComponent implements AfterViewInit
         return hint_name;
     }
 
-    // Determine how long to make the country-specific popup,
-    // based on the length of it's name or capital city
+    // Determine how wide to make a country's popup,
+    // based on the length of it's name or capital city.
+    // This is an approximation based on current font size.
+    // Could be refined, owever, different names with the same length
+    // could use slightly different amounts of space due to letter widths; (Eg: i vs. w)
     calc_popup_width(len: number): number
     {
         switch(len)
         {
-            case 1: { return 100; }
-            case 2: { return 100; }
-            case 3: { return 110; }
-            case 4: { return 120; }
-            case 5: { return 140; }
-            case 6: { return 150; }
-            case 7: { return 160; }
-            case 8: { return 170; }
-            case 9: { return 190; }
-            case 10: { return 200; }
-            case 11: { return 210; }
-            case 12: { return 220; }
-            case 13: { return 230; }
-            case 14: { return 250; }
-            case 15: { return 260; }
-            case 16: { return 270; }
-            case 17: { return 280; }
-            case 18: { return 300; }
-            case 19: { return 310; }
-            case 20: { return 320; }
-            case 21: { return 330; }
-            case 22: { return 340; }
-            case 23: { return 360; }
-            case 24: { return 370; }
-            case 25: { return 380; }
-            case 26: { return 390; }
-            case 27: { return 410; }
-            case 28: { return 420; }
-            case 29: { return 430; }
-            case 30: { return 440; }
-            case 31: { return 460; }
-            case 32: { return 470; }
-            case 33: { return 480; }
-            case 34: { return 490; }
-            case 35: { return 500; }
+            case 1: return 130;
+            case 2: return 130;
+            case 3: return 130;
+            case 4: return 130;
+            case 5: return 140;
+            case 6: return 150;
+            case 7: return 150;
+            case 8: return 160;
+            case 9: return 170;
+            case 10: return 180;
+            case 11: return 190;
+            case 12: return 200;
+            case 13: return 210;
+            case 14: return 220;
+            case 15: return 230;
+            case 16: return 230;
+            case 17: return 240;
+            case 18: return 250;
+            case 19: return 260;
+            case 20: return 260;
+            case 21: return 270;
+            case 22: return 280;
+            case 23: return 290;
+            case 24: return 300;
+            case 25: return 310;
+            case 26: return 320;
+            case 27: return 330;
+            case 28: return 330;
+            case 29: return 340;
+            case 30: return 350;
+            case 31: return 350;
+            case 32: return 360;
+            case 33: return 360;
+            case 34: return 370;
+            case 35: return 380;
         }
 
-        return 350;
+        return 400;
     }
 
     // when an unguessed country is clicked, show hints in popup
     country_clicked_init = (country: any, layer: any) =>
     {
+        // Find which is longer: country name or capital city name
         const max_length = Math.max(country.properties.ADMIN.length, country.properties.capital_city.length);
+        // Calculate how wide the popup will be based on the name length
         const popup_width = this.calc_popup_width(max_length);
 
         // get hint name for country
