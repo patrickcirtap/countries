@@ -11,6 +11,11 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
+// ERROR WITH CHAD???
+
+// Check each country popup is big enough for next font size
+
+// Re-clicking hint shows console error?
 
 // Style popup colour with bec with proper ocean background
 // Style give up confirmation dialog with bec
@@ -149,7 +154,7 @@ export class MapComponent implements AfterViewInit
     // First letter of each word in the name is revealed. Eg:
     // Saint Kitts and Nevis becomes
     // S---- K---- a-- N----
-    hint_name(orig_name: string): string
+    calc_hint_name(orig_name: string): string
     {
         var hint_name = "<b>"+orig_name[0]+"</b>";
 
@@ -175,14 +180,78 @@ export class MapComponent implements AfterViewInit
         return hint_name;
     }
 
+    // Determine how wide to make a country's popup,
+    // based on the length of it's name or capital city.
+    // This is an approximation based on current font size.
+    // Could be refined, owever, different names with the same length
+    // could use slightly different amounts of space due to letter widths; (Eg: i vs. w)
+    calc_popup_width(len: number): number
+    {
+        switch(len)
+        {
+            case 1: return 130;
+            case 2: return 130;
+            case 3: return 130;
+            case 4: return 130;
+            case 5: return 140;
+            case 6: return 150;
+            case 7: return 150;
+            case 8: return 160;
+            case 9: return 170;
+            case 10: return 180;
+            case 11: return 190;
+            case 12: return 200;
+            case 13: return 210;
+            case 14: return 220;
+            case 15: return 230;
+            case 16: return 230;
+            case 17: return 240;
+            case 18: return 250;
+            case 19: return 260;
+            case 20: return 260;
+            case 21: return 270;
+            case 22: return 280;
+            case 23: return 290;
+            case 24: return 300;
+            case 25: return 310;
+            case 26: return 320;
+            case 27: return 330;
+            case 28: return 330;
+            case 29: return 340;
+            case 30: return 350;
+            case 31: return 350;
+            case 32: return 360;
+            case 33: return 360;
+            case 34: return 370;
+            case 35: return 380;
+        }
+
+        return 400;
+    }
+
     // when an unguessed country is clicked, show hints in popup
     country_clicked_init = (country: any, layer: any) =>
     {
-        const hint_name = this.hint_name(country.properties.ADMIN);
-        // const first_letter = "<i>First letter</i>: " + "<b>"+country.properties.ADMIN[0]+"</b>";
-        const capital_city = "<i>Capital city</i>: " + "<b>"+country.properties.capital_city+"</b>";
+        // Find which is longer: country name or capital city name
+        const max_length = Math.max(country.properties.ADMIN.length, country.properties.capital_city.length);
+        // Calculate how wide the popup will be based on the name length
+        const popup_width = this.calc_popup_width(max_length);
 
-        layer.bindPopup(hint_name + "<br>" + capital_city);
+        // get hint name for country
+        const get_hint_name = this.calc_hint_name(country.properties.ADMIN);
+
+        // create final hint templates for the 2 hints
+        // note the use of BOTH types of quotes: double ( " ) and single ( ' )
+        // to create a string within a string
+        const hint_name = "'<i>First letter</i>: <b>" + get_hint_name + "</b>'";
+        const capital_city = "'<i>Capital city</i>: <b>" + country.properties.capital_city + "</b>'";
+
+        // Combine both hint templates to form the full popup HTML template
+        const popup_template = '<p>Click for hints:</p> <p onclick="this.innerHTML=' + hint_name + '"><i>First letter</i>: <b>???</b></p> <p onclick="this.innerHTML=' + capital_city + '"><i>Capital city</i>: <b>???</b></p>';
+
+        layer.bindPopup(popup_template, {
+            minWidth: popup_width
+        });
     }
 
     // when a guessed country is clicked, show name and capital city in popup
