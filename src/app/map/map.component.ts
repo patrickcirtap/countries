@@ -101,28 +101,6 @@ export class MapComponent implements AfterViewInit
             style: this.country_style_init,
             onEachFeature: this.country_clicked_init
         }).addTo(this.map);
-
-        // DELETE AFTER ////////////////////////////
-        for(let i = 0; i < this.countries.length; i++)
-        {
-            var max_len = Math.max(this.countries[i].properties.ADMIN.length, this.countries[i].properties.capital_city.length)
-
-            if((max_len >= 5) && (max_len <= 6))
-            {
-                var name_icon = L.divIcon({
-                    className: "country-name",
-                    html: max_len.toString(),
-                    iconSize: [200, 0],
-                });
-                this.countries[i].properties.name_icon = L.marker(this.countries[i].properties.center_coords, {icon: name_icon}).addTo(this.map);
-
-                L.geoJSON(this.countries[i], {
-                    style: this.country_style_guessed,
-                    onEachFeature: this.country_clicked_init
-                }).addTo(this.map);
-            }
-        }
-        // DELETE AFTER ////////////////////////////
     }
 
     ngAfterViewInit(): void
@@ -206,50 +184,51 @@ export class MapComponent implements AfterViewInit
     {
         switch(len)
         {
-            case 1: { return 125; }
-            case 2: { return 125; }
-            case 3: { return 125; }
-            case 4: { return 125; }
-        //     case 5: { return ; }
-            case 6: { return 125; }
-        //     case 7: { return ; }
-        //     case 8: { return ; }
-        //     case 9: { return ; }
-        //     case 10: { return ; }
-        //     case 11: { return ; }
-        //     case 12: { return ; }
-        //     case 13: { return ; }
-        //     case 14: { return ; }
-        //     case 15: { return ; }
-        //     case 16: { return ; }
-        //     case 17: { return ; }
-        //     case 18: { return ; }
-        //     case 19: { return ; }
-        //     case 20: { return ; }
-        //     case 21: { return ; }
-        //     case 22: { return ; }
-        //     case 23: { return ; }
-        //     case 24: { return ; }
-        //     case 25: { return ; }
-        //     case 26: { return ; }
-        //     case 27: { return ; }
-        //     case 28: { return ; }
-        //     case 29: { return ; }
-        //     case 30: { return ; }
-        //     case 31: { return ; }
-        //     case 32: { return ; }
-        //     case 33: { return ; }
-        //     case 34: { return ; }
-        //     case 35: { return ; }
+            case 1: { return 100; }
+            case 2: { return 100; }
+            case 3: { return 110; }
+            case 4: { return 120; }
+            case 5: { return 140; }
+            case 6: { return 150; }
+            case 7: { return 160; }
+            case 8: { return 170; }
+            case 9: { return 190; }
+            case 10: { return 200; }
+            case 11: { return 210; }
+            case 12: { return 220; }
+            case 13: { return 230; }
+            case 14: { return 250; }
+            case 15: { return 260; }
+            case 16: { return 270; }
+            case 17: { return 280; }
+            case 18: { return 300; }
+            case 19: { return 310; }
+            case 20: { return 320; }
+            case 21: { return 330; }
+            case 22: { return 340; }
+            case 23: { return 360; }
+            case 24: { return 370; }
+            case 25: { return 380; }
+            case 26: { return 390; }
+            case 27: { return 410; }
+            case 28: { return 420; }
+            case 29: { return 430; }
+            case 30: { return 440; }
+            case 31: { return 460; }
+            case 32: { return 470; }
+            case 33: { return 480; }
+            case 34: { return 490; }
+            case 35: { return 500; }
         }
 
-        return 300;
+        return 350;
     }
 
     // when an unguessed country is clicked, show hints in popup
     country_clicked_init = (country: any, layer: any) =>
     {
         const max_length = Math.max(country.properties.ADMIN.length, country.properties.capital_city.length);
+        const popup_width = this.calc_popup_width(max_length);
 
         // get hint name for country
         const get_hint_name = this.calc_hint_name(country.properties.ADMIN);
@@ -261,12 +240,10 @@ export class MapComponent implements AfterViewInit
         const capital_city = "'<i>Capital city</i>: <b>" + country.properties.capital_city + "</b>'";
 
         // Combine both hint templates to form the full popup HTML template
-        const popup_template = '<p>Click for hints:</p> <p onclick="this.innerHTML=' + capital_city + '"><i>Capital city</i>: <b>???</b></p> <p onclick="this.innerHTML=' + hint_name + '"><i>First letter</i>: <b>???</b></p>';
-
-        console.log(country.properties.ADMIN + " MAX LANGTH: " + max_length);
+        const popup_template = '<p>Click for hints:</p> <p onclick="this.innerHTML=' + hint_name + '"><i>First letter</i>: <b>???</b></p> <p onclick="this.innerHTML=' + capital_city + '"><i>Capital city</i>: <b>???</b></p>';
 
         layer.bindPopup(popup_template, {
-            minWidth: this.calc_popup_width(max_length)
+            minWidth: popup_width
         });
     }
 
