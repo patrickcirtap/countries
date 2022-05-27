@@ -11,10 +11,6 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
-
-// Check big_countries for names/capitals with quote marks " '
-
-
 // Re-clicking hint shows console error?
 
 // Style popup colour with bec with proper ocean background
@@ -22,6 +18,8 @@ import import_countries from './../../assets/countries.json';
 
 // Hamburger user buttons
 // Toggle buttons - toggle symbol/switch
+
+// Default zoom based on current screen size?
 
 
 @Component({
