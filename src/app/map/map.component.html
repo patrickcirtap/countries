@@ -22,25 +22,44 @@
     </form>
 </div>
 
+<div class="stats">
+    {{ num_countries_guessed }} / {{ countries.length }}
+</div>
+
 <mat-menu #button_menu="matMenu" xPosition="after" yPosition="below">
-    <button class="button" (click)="reset_zoom()">
-        Reset zoom
+    <button
+        class="button"
+        (click)="reset_zoom()">
+      Reset zoom
     </button>
-    <button class="button" (click)="toggle_names()">
-        Toggle names
-    </button>
-    <button class="button" (click)="toggle_markers()">
-        Toggle markers
-    </button>
-    <button #giveupRef class="button" (click)="open_giveup_dialog()">
-        Give up
+
+    <mat-slide-toggle
+        class="button"
+        [color]="toggle_color"
+        [checked]="names_on"
+        [labelPosition]="label_position"
+        (change)="toggle_names()"
+        (click)="$event.stopPropagation();">
+        &nbsp;Toggle names&nbsp;&nbsp;&nbsp;&nbsp;
+    </mat-slide-toggle>
+
+    <mat-slide-toggle
+        class="button"
+        [color]="toggle_color"
+        [checked]="markers_on"
+        [labelPosition]="label_position"
+        (change)="toggle_markers()"
+        (click)="$event.stopPropagation();">
+        &nbsp;Toggle markers&nbsp;
+    </mat-slide-toggle>
+
+    <button #giveupRef
+        class="button"
+        (click)="open_giveup_dialog()">
+      Give up
     </button>
 </mat-menu>
 
 <button mat-icon-button [matMenuTriggerFor]="button_menu" class="button-for-menu">
     <mat-icon>menu</mat-icon>
 </button>
-
-<div class="stats">
-    {{ num_countries_guessed }} / {{ countries.length }}
-</div>

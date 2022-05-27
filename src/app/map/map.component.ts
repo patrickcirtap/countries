@@ -20,11 +20,6 @@ import import_countries from './../../assets/countries.json';
 
 
 
-// Toggle buttons - toggle symbol/switch
-
-// Map not re-focusing after clicking menu button
-
-
 @Component({
     selector: 'app-map',
     templateUrl: './map.component.html',
@@ -42,6 +37,8 @@ export class MapComponent implements AfterViewInit
     public countries: any = import_countries;
     public num_countries_guessed: number = 0;
     // markers for unguessed countries
+    public toggle_color = "accent";
+    public label_position: "before" | "after" = "before";
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;

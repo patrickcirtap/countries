@@ -57,7 +57,7 @@
     position: absolute;
     z-index: 1001;
 
-    width: 35px;
+    width: 38px;
     height: 35px;
     background-color: #FFFFFF;
     border: 1px solid #AAAAAA;
@@ -65,7 +65,7 @@
     cursor: pointer;
 
     top: 95px;
-    left: 16px;
+    left: 15px;
 }
 /* menu buttons */
 .button
