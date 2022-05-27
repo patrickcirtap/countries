@@ -22,7 +22,26 @@
     </form>
 </div>
 
-<div class="reset-zoom">
+<mat-menu #button_menu="matMenu" xPosition="after" yPosition="below" title="More options">
+    <button mat-menu-item class="button" (click)="reset_zoom()">
+        Reset zoom
+    </button>
+    <button mat-menu-item class="button" (click)="toggle_names()">
+        Toggle names
+    </button>
+    <button mat-menu-item class="button" (click)="toggle_markers()">
+        Toggle markers
+    </button>
+    <button mat-menu-item class="button" (click)="open_giveup_dialog()">
+        Give up
+    </button>
+</mat-menu>
+
+<button mat-icon-button [matMenuTriggerFor]="button_menu" class="menu-button">
+    <mat-icon>menu</mat-icon>
+</button>
+
+<!-- <div class="reset-zoom">
     <button #resetzoomRef class="user-button" (click)="reset_zoom()" title="Reset zoom">
         Reset zoom
     </button>
@@ -44,7 +63,7 @@
     <button #giveupRef class="user-button" (click)="open_giveup_dialog()" title="Give up?">
         Give up?
     </button>
-</div>
+</div> -->
 
 <div class="stats">
     {{ num_countries_guessed }} / {{ countries.length }}

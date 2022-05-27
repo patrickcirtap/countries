@@ -38,6 +38,30 @@
     font-size: 1.25em;
 }
 
+/* menu button */
+.menu-button
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    width: 35px;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    cursor: pointer;
+
+    top: 95px;
+    left: 16px;
+}
+/* menu buttons */
+.button
+{
+    width: 200px;
+    height: 50px;
+}
+
 /* all buttons */
 .user-button
 {

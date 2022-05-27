@@ -13,13 +13,19 @@ import import_countries from './../../assets/countries.json';
 
 // Re-clicking hint shows console error?
 
+// Default zoom based on current screen size?
+
 // Style popup colour with bec with proper ocean background
 // Style give up confirmation dialog with bec
+
+
 
 // Hamburger user buttons
 // Toggle buttons - toggle symbol/switch
 
-// Default zoom based on current screen size?
+// Disable give up button after giving up
+
+// Map not re-focusing after clicking menu button
 
 
 @Component({
@@ -46,9 +52,6 @@ export class MapComponent implements AfterViewInit
     debounce_delay: number = 250;
     // For accessing the HTML buttons
     @ViewChild("entryboxRef") entryboxRef!: ElementRef;
-    @ViewChild("togglenamesRef") togglenamesRef!: ElementRef;
-    @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
-    @ViewChild("giveupRef") giveupRef!: ElementRef;
 
     constructor(public giveup_dialog: MatDialog) {}
 
@@ -447,6 +450,8 @@ export class MapComponent implements AfterViewInit
     // Create popup dialog of GiveupDialog component
     open_giveup_dialog(): void
     {
+        if(this.given_up) return;
+
         // Only 1 dialog can be open at a time
         if(this.giveup_dialog.openDialogs.length == 0)
         {
@@ -500,7 +505,6 @@ export class MapComponent implements AfterViewInit
         }
 
         this.entryboxRef.nativeElement.disabled = true;
-        this.giveupRef.nativeElement.disabled = true;
     }
 
     // Reset map zoom and re-focus on input box
