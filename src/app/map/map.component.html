@@ -22,48 +22,24 @@
     </form>
 </div>
 
-<mat-menu #button_menu="matMenu" xPosition="after" yPosition="below" title="More options">
-    <button mat-menu-item class="button" (click)="reset_zoom()">
+<mat-menu #button_menu="matMenu" xPosition="after" yPosition="below">
+    <button class="button" (click)="reset_zoom()">
         Reset zoom
     </button>
-    <button mat-menu-item class="button" (click)="toggle_names()">
+    <button class="button" (click)="toggle_names()">
         Toggle names
     </button>
-    <button mat-menu-item class="button" (click)="toggle_markers()">
+    <button class="button" (click)="toggle_markers()">
         Toggle markers
     </button>
-    <button mat-menu-item class="button" (click)="open_giveup_dialog()">
+    <button #giveupRef class="button" (click)="open_giveup_dialog()">
         Give up
     </button>
 </mat-menu>
 
-<button mat-icon-button [matMenuTriggerFor]="button_menu" class="menu-button">
+<button mat-icon-button [matMenuTriggerFor]="button_menu" class="button-for-menu">
     <mat-icon>menu</mat-icon>
 </button>
-
-<!-- <div class="reset-zoom">
-    <button #resetzoomRef class="user-button" (click)="reset_zoom()" title="Reset zoom">
-        Reset zoom
-    </button>
-</div>
-
-<div class="toggle-names">
-    <button #togglenamesRef class="user-button" (click)="toggle_names()" title="Toggle names on/off">
-        Names
-    </button>
-</div>
-
-<div class="toggle-markers">
-    <button #togglemarkersRef class="user-button" (click)="toggle_markers()" title="Toggle markers on/off">
-        Markers
-    </button>
-</div>
-
-<div class="give-up">
-    <button #giveupRef class="user-button" (click)="open_giveup_dialog()" title="Give up?">
-        Give up?
-    </button>
-</div> -->
 
 <div class="stats">
     {{ num_countries_guessed }} / {{ countries.length }}
