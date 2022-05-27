@@ -11,7 +11,9 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
-// Countries with quote marks ( ' ) in name / capital city cause error when revealing the hint
+
+// Check big_countries for names/capitals with quote marks " '
+
 
 // Re-clicking hint shows console error?
 
@@ -154,14 +156,14 @@ export class MapComponent implements AfterViewInit
     // S---- K---- a-- N----
     calc_hint_name(orig_name: string): string
     {
-        var hint_name = "<b>"+orig_name[0]+"</b>";
+        var hint_name = orig_name[0];
 
         for(let i = 1; i < orig_name.length; i++)
         {
             // first letter of current word in name
             if(orig_name[i-1] == ' ')
             {
-                hint_name = hint_name.concat("<b>"+orig_name[i]+"</b>");
+                hint_name = hint_name.concat(orig_name[i]);
             }
             // space in name
             else if(orig_name[i] == ' ')
@@ -181,7 +183,7 @@ export class MapComponent implements AfterViewInit
     // Determine how wide to make a country's popup,
     // based on the length of it's name or capital city.
     // This is an approximation based on current font size.
-    // Could be refined, owever, different names with the same length
+    // Could be refined, however, different names with the same length
     // could use slightly different amounts of space due to letter widths; (Eg: i vs. w)
     calc_popup_width(len: number): number
     {
@@ -242,10 +244,15 @@ export class MapComponent implements AfterViewInit
         // note the use of BOTH types of quotes: double ( " ) and single ( ' )
         // to create a string within a string
         const hint_name = "'<i>First letter</i>: <b>" + get_hint_name + "</b>'";
-        const capital_city = "'<i>Capital city</i>: <b>" + country.properties.capital_city + "</b>'";
+        // Need to remove single quote marks( ' ) from capital city because
+        // they mess up the HTML-string template and end the string too early.
+        // Country name is fine because countries don't start with ( ' )
+        const capital_city = "'<i>Capital city</i>: <b>" + country.properties.capital_city.replace(/'/g, "") + "</b>'";
 
         // Combine both hint templates to form the full popup HTML template
-        const popup_template = '<p>Click for hints:</p> <p onclick="this.innerHTML=' + hint_name + '"><i>First letter</i>: <b>???</b></p> <p onclick="this.innerHTML=' + capital_city + '"><i>Capital city</i>: <b>???</b></p>';
+        const popup_template = '<p>Click for hints:</p>' +
+                               '<p onclick="this.innerHTML=' + hint_name    + '"><i>First letter</i>: <b>???</b></p>' +
+                               '<p onclick="this.innerHTML=' + capital_city + '"><i>Capital city</i>: <b>???</b></p>';
 
         layer.bindPopup(popup_template, {
             minWidth: popup_width
@@ -255,10 +262,12 @@ export class MapComponent implements AfterViewInit
     // when a guessed country is clicked, show name and capital city in popup
     country_clicked_final = (country: any, layer: any) =>
     {        
-        const country_name = "<b>"+country.properties.ADMIN+"</b>";
-        const capital_city = "<i>Capital city</i>: " + "<b>"+country.properties.capital_city+"</b>";
+        const country_name = "<p><b>"+country.properties.ADMIN+"</b></p>";
+        const capital_city = "<p><i>Capital city</i>: " + "<b>"+country.properties.capital_city+"</b></p>";
 
-        layer.bindPopup(country_name + "<br>" + capital_city);
+        const template = country_name + capital_city;
+
+        layer.bindPopup(template);
     }
 
     // mark country on map by adding new layer and removing old layer.
