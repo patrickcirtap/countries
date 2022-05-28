@@ -11,12 +11,37 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
+// Style popup colour with bec with proper ocean background
+// Style give up confirmation dialog with bec
+
+
+
 // Re-clicking hint shows console error?
+
+// Look into text size on different screens
+
+
 
 // Default zoom based on current screen size?
 
-// Style popup colour with bec with proper ocean background
-// Style give up confirmation dialog with bec
+/*          (width x height)
+    left screen:
+        size: 1920 x 995
+        zoom: 2.85
+
+    right screen:
+        size: 1355 x 955
+        zoom: 2.85
+
+    laptop:
+        size: 761 x 656
+        zoom: 2.35
+
+    Back TV:
+        size: 3275 x 2075
+        zoom: 3.95
+*/
+
 
 
 
@@ -31,7 +56,7 @@ export class MapComponent implements AfterViewInit
     public map!: L.Map;
     public map_layer!: any;
     public centroid: L.LatLngExpression = [11, 12];
-    public default_zoom: number = 2.85;
+    public default_zoom!: number;
     // Countries and guessed countries
     public curr_country: string = "";
     public countries: any = import_countries;
@@ -52,6 +77,11 @@ export class MapComponent implements AfterViewInit
 
     initMap()
     {
+        this.default_zoom =  2.5;
+
+        console.log("SCREEN SIZE: " + window.innerWidth + " x " + window.innerHeight);
+        console.log("DEFLT ZOOM : " + this.default_zoom);
+
         this.map = L.map("map", {
             center: this.centroid,
             zoom: this.default_zoom,

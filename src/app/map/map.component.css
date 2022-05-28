@@ -20,7 +20,8 @@
 
 .leaflet-container
 {
-    background-color: #D3E7FF;
+    /* background-color: #D3E7FF; */
+    background-color: red;
 }
 
 /* entry box */
@@ -94,6 +95,11 @@
 .button-toggle
 {
     text-indent: 24px;
+}
+.button:disabled:hover
+{
+    background-color: #FFFFFF;
+    cursor: not-allowed;
 }
 /* menu width */
 ::ng-deep.mat-menu-panel
