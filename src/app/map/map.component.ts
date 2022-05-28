@@ -1,7 +1,7 @@
 import { Component, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
-import {MatDialog} from '@angular/material/dialog';
-import {GiveupDialogComponent} from './../giveup-dialog/giveup-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GiveupDialogComponent } from './../giveup-dialog/giveup-dialog.component';
 
 import import_countries from './../../assets/countries.json';
 
@@ -19,7 +19,6 @@ import import_countries from './../../assets/countries.json';
 // Re-clicking hint shows console error?
 
 // Look into text size on different screens
-
 
 
 // Default zoom based on current screen size?
@@ -77,7 +76,7 @@ export class MapComponent implements AfterViewInit
 
     initMap()
     {
-        this.default_zoom =  2.5;
+        this.default_zoom =  this.calc_default_zoom();
 
         console.log("SCREEN SIZE: " + window.innerWidth + " x " + window.innerHeight);
         console.log("DEFLT ZOOM : " + this.default_zoom);
@@ -137,6 +136,12 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
 
         this.initMap();
+    }
+
+    // Calculate map default zoom level based on current window size
+    calc_default_zoom(): number
+    {
+        return 2.85;
     }
 
     // Initial style for all countries
