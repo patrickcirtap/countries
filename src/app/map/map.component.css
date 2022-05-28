@@ -21,6 +21,7 @@
 .leaflet-container
 {
     background-color: #D3E7FF;
+    /* background-color: red; */
 }
 
 /* entry box */
@@ -38,65 +39,6 @@
     font-size: 1.25em;
 }
 
-/* all buttons */
-.user-button
-{
-    text-align: center;
-    font-size: 13px;
-
-    background-color: #FFFFFF;
-    border: 1px solid #AAAAAA;
-    color: #000000;
-    cursor: pointer;
-
-    padding: 3px;
-    border-radius: 5px;
-    width: 80px;
-    height: 25px;
-}
-
-/* reset zoom div */
-.reset-zoom
-{
-    /* for being "above" map component */
-    position: absolute;
-    z-index: 1001;
-
-    top: 95px;
-    left: 11px;
-}
-/* toggle-names div */
-.toggle-names
-{
-    /* for being "above" map component */
-    position: absolute;
-    z-index: 1001;
-
-    top: 130px;
-    left: 11px;
-}
-/* toggle-markers div */
-.toggle-markers
-{
-    /* for being "above" map component */
-    position: absolute;
-    z-index: 1001;
-
-    top: 165px;
-    left: 11px;
-}
-/* give-up div */
-.give-up
-{
-    /* for being "above" map component */
-    position: absolute;
-    z-index: 1001;
-
-    top: 200px;
-    left: 11px;
-}
-
-
 /* guessed countries stats */
 .stats
 {
@@ -107,4 +49,60 @@
     font-size: 1.75em;
     top: 25px;
     right: 25px;
+}
+
+/* button for menu */
+.button-for-menu
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    width: 38px;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    cursor: pointer;
+
+    top: 95px;
+    left: 15px;
+}
+/* menu buttons */
+.button
+{
+    width: 100%;
+    height: 35px;
+
+    text-align: left;
+    font-size: 15px;
+
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.button:hover
+{
+    background-color: #EAEAEA;
+}
+/* toggle slides don't indent the same as normal buttons
+   so they need separate text-indent amounts */
+.button-normal
+{
+    text-indent: 20px;
+}
+.button-toggle
+{
+    text-indent: 24px;
+}
+.button:disabled:hover
+{
+    background-color: #FFFFFF;
+    cursor: not-allowed;
+}
+/* menu width */
+::ng-deep.mat-menu-panel
+{
+    max-width: 200px !important;
 }

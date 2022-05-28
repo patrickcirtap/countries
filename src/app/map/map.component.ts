@@ -1,7 +1,7 @@
 import { Component, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
-import {MatDialog} from '@angular/material/dialog';
-import {GiveupDialogComponent} from './../giveup-dialog/giveup-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GiveupDialogComponent } from './../giveup-dialog/giveup-dialog.component';
 
 import import_countries from './../../assets/countries.json';
 
@@ -11,15 +11,37 @@ import import_countries from './../../assets/countries.json';
 // Remove big_ and test_ JSON files
 
 
-// Re-clicking hint shows console error?
-
 // Style popup colour with bec with proper ocean background
 // Style give up confirmation dialog with bec
 
-// Hamburger user buttons
-// Toggle buttons - toggle symbol/switch
+
+
+// Re-clicking hint shows console error?
+
+// Look into text size on different screens
+
 
 // Default zoom based on current screen size?
+
+/*          (width x height)
+    left screen:
+        size: 1920 x 995
+        zoom: 2.85
+
+    right screen:
+        size: 1355 x 955
+        zoom: 2.85
+
+    laptop:
+        size: 761 x 656
+        zoom: 2.35
+
+    Back TV:
+        size: 3275 x 2075
+        zoom: 3.95
+*/
+
+
 
 
 @Component({
@@ -33,12 +55,14 @@ export class MapComponent implements AfterViewInit
     public map!: L.Map;
     public map_layer!: any;
     public centroid: L.LatLngExpression = [11, 12];
-    public default_zoom: number = 2.85;
+    public default_zoom!: number;
     // Countries and guessed countries
     public curr_country: string = "";
     public countries: any = import_countries;
     public num_countries_guessed: number = 0;
     // markers for unguessed countries
+    public toggle_color = "accent";
+    public label_position: "before" | "after" = "before";
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;
@@ -46,14 +70,17 @@ export class MapComponent implements AfterViewInit
     debounce_delay: number = 250;
     // For accessing the HTML buttons
     @ViewChild("entryboxRef") entryboxRef!: ElementRef;
-    @ViewChild("togglenamesRef") togglenamesRef!: ElementRef;
-    @ViewChild("togglemarkersRef") togglemarkersRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
 
     constructor(public giveup_dialog: MatDialog) {}
 
     initMap()
     {
+        this.default_zoom =  this.calc_default_zoom();
+
+        console.log("SCREEN SIZE: " + window.innerWidth + " x " + window.innerHeight);
+        console.log("DEFLT ZOOM : " + this.default_zoom);
+
         this.map = L.map("map", {
             center: this.centroid,
             zoom: this.default_zoom,
@@ -109,6 +136,12 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
 
         this.initMap();
+    }
+
+    // Calculate map default zoom level based on current window size
+    calc_default_zoom(): number
+    {
+        return 2.85;
     }
 
     // Initial style for all countries

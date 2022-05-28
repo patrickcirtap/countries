@@ -33,12 +33,17 @@ $ export NODE_OPTIONS="--max-old-space-size=3072"
 ## TODO / Look into:
 
 1. Have 2 "Toggle Names" buttons:
-- One for toggling completed names on/off while guessing
-  - (already implemented)
-- One for toggling guessed/unguessed names after give up
-  - After giving up, user may only want to see remaining names, not all names
+  - One for toggling completed names on/off while guessing
+    - (already implemented)
+  - One for toggling guessed/unguessed names after give up
+    - After giving up, user may only want to see remaining names, not all names
 
 2. Is there a better way to toggle name/marker icons instead of creating/deleting the icon every time it is toggled on/off?
   - The add name/marker funtion **creates and adds** the icon to the map each time
   - The remove name/marker funtion **removes** the icon from the map each time
     - Couldn't assign the icon object as an attribute of the countries JSON array
+
+3. Names with quotation marks cause HTML string processing problems when displaying hints, due to "breaking" the HTML string too early.
+  - See `country_clicked_init` function for more detail.
+  - Look into how to handle this
+    - Perhaps using double quoted HTML template strings ( " + ' ) won't allow for handling name quotes
