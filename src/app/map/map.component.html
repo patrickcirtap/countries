@@ -28,33 +28,33 @@
 
 <mat-menu #button_menu="matMenu" xPosition="after" yPosition="below">
     <button
-        class="button"
+        class="button button-normal"
         (click)="reset_zoom()">
       Reset zoom
     </button>
 
     <mat-slide-toggle
-        class="button"
+        class="button button-toggle"
         [color]="toggle_color"
         [checked]="names_on"
         [labelPosition]="label_position"
         (change)="toggle_names()"
         (click)="$event.stopPropagation();">
-        &nbsp;Toggle names&nbsp;&nbsp;&nbsp;&nbsp;
+        Toggle names&nbsp;&nbsp;&nbsp;&nbsp;
     </mat-slide-toggle>
 
     <mat-slide-toggle
-        class="button"
+        class="button button-toggle"
         [color]="toggle_color"
         [checked]="markers_on"
         [labelPosition]="label_position"
         (change)="toggle_markers()"
         (click)="$event.stopPropagation();">
-        &nbsp;Toggle markers&nbsp;
+        Toggle markers&nbsp;
     </mat-slide-toggle>
 
     <button #giveupRef
-        class="button"
+        class="button button-normal"
         (click)="open_giveup_dialog()">
       Give up
     </button>

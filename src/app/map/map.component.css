@@ -74,7 +74,6 @@
     height: 35px;
 
     text-align: left;
-    text-indent: 20px;
     font-size: 15px;
 
     cursor: pointer;
@@ -85,6 +84,16 @@
 .button:hover
 {
     background-color: #EAEAEA;
+}
+/* toggle slides don't indent the same as normal buttons
+   so they need separate text-indent amounts */
+.button-normal
+{
+    text-indent: 20px;
+}
+.button-toggle
+{
+    text-indent: 24px;
 }
 /* menu width */
 ::ng-deep.mat-menu-panel
