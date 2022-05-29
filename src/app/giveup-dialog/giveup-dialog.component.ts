@@ -16,9 +16,7 @@ export class GiveupDialogComponent implements OnInit
 
     constructor(private giveup_dialog_ref: MatDialogRef<GiveupDialogComponent>) { }
   
-    ngOnInit(): void
-    {
-    }
+    ngOnInit(): void { }
 
     // If user presses [Give Up] button
     dialog_giveup(): void

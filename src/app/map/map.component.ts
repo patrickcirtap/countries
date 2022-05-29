@@ -5,12 +5,6 @@ import { GiveupDialogComponent } from './../giveup-dialog/giveup-dialog.componen
 
 import import_countries from './../../assets/countries.json';
 
-
-// TODO:
-// 1: TURN ON: Reload page - alert
-// Remove big_ and test_ JSON files
-
-
 // Style popup colour with bec with proper ocean background
 // Style give up confirmation dialog with bec
 
@@ -27,13 +21,15 @@ export class MapComponent implements AfterViewInit
     public map_layer!: any;
     public centroid: L.LatLngExpression = [11, 12];
     public default_zoom: number = 2.9;
-    // Countries and guessed countries
-    public curr_country: string = "";
-    public countries: any = import_countries;
-    public num_countries_guessed: number = 0;
-    // markers for unguessed countries
     public toggle_color = "accent";
     public label_position: "before" | "after" = "before";
+    // User input from entry box
+    public curr_country: string = "";
+    // List of all countries to be displayed on map
+    public countries: any = import_countries;
+    public num_countries_guessed: number = 0;
+    // Markers for unguessed countries
+    public marker_url: string = './../../assets/marker.png';
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;
@@ -43,7 +39,7 @@ export class MapComponent implements AfterViewInit
     @ViewChild("entryboxRef") entryboxRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
 
-    constructor(public giveup_dialog: MatDialog) {}
+    constructor(public giveup_dialog: MatDialog) { }
 
     initMap()
     {
@@ -56,8 +52,8 @@ export class MapComponent implements AfterViewInit
             zoomSnap: 0.1,
             // How much the zoom changes after pressing the zoom buttons ( + / - )
             zoomDelta: 0.2,
-            // How much the zoom changes after scroll-zooming
-            wheelPxPerZoomLevel: 150,
+            // How much the zoom changes after mouse scroll-zooming
+            wheelPxPerZoomLevel: 100,
             // Can't scroll past [North-east, South-west]
             maxBounds: [[85, 180], [-85, -180]],
             attributionControl: true
@@ -73,20 +69,20 @@ export class MapComponent implements AfterViewInit
         ////////////////////////////////////////////////////////////////////////////
         // Map Tiles - for testing /////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
-        var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
-            attribution: '',
-            noWrap: true,
-            maxZoom: 8,
-            minZoom: 2,
-        });
-        var toners = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}{r}.png', {
-            attribution: '',
-            noWrap: true,
-            maxZoom: 8,
-            minZoom: 2,
-        });
-        tiles.addTo(this.map);
-        toners.addTo(this.map);
+        // var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+        //     attribution: '',
+        //     noWrap: true,
+        //     maxZoom: 8,
+        //     minZoom: 2,
+        // });
+        // var toners = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}{r}.png', {
+        //     attribution: '',
+        //     noWrap: true,
+        //     maxZoom: 8,
+        //     minZoom: 2,
+        // });
+        // tiles.addTo(this.map);
+        // toners.addTo(this.map);
         ////////////////////////////////////////////////////////////////////////////
         // Map Tiles - for testing /////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -100,10 +96,10 @@ export class MapComponent implements AfterViewInit
 
     ngAfterViewInit(): void
     {
+        this.initMap();
+
         // Focus on input box on load
         this.entryboxRef.nativeElement.focus();
-
-        this.initMap();
     }
 
     // Initial style for all countries
@@ -130,7 +126,7 @@ export class MapComponent implements AfterViewInit
             weight: 2
         };
     }
-    // Final style for all remaining un-guessed countries upon give_up
+    // Final style for all remaining un-guessed countries upon give up
     country_style_final()
     {
         return {
@@ -227,7 +223,7 @@ export class MapComponent implements AfterViewInit
     {
         // Find which is longer: country name or capital city name
         const max_length = Math.max(country.properties.ADMIN.length, country.properties.capital_city.length);
-        // Calculate how wide the popup will be based on the name length
+        // Calculate how wide the popup will be based on the above name length
         const popup_width = this.calc_popup_width(max_length);
 
         // get hint name for country
@@ -264,13 +260,10 @@ export class MapComponent implements AfterViewInit
     }
 
     // mark country on map by adding new layer and removing old layer.
-    // new layer needed so we can bind the popup to allow name popup
+    // new layer needed so we can bind the new popup to allow name details
     style_country(country: any, style: number): void
     {
-        const country_name = country.properties.ADMIN;
-        const center_coords = country.properties.center_coords;
         const ISO_A3 = country.properties.ISO_A3;
-
         var map = this.map;
         var country_style: any;
         // style - 0: country guessed style
@@ -321,6 +314,7 @@ export class MapComponent implements AfterViewInit
         };
     }
 
+    // check if the current string in the input box matches a country name
     check_country(): void
     {
         // convert entered word to lowercase for comparisons,
@@ -395,7 +389,7 @@ export class MapComponent implements AfterViewInit
     add_marker(country: any): void
     {
         var icon = L.icon({
-            iconUrl: './../../assets/marker.png',
+            iconUrl: this.marker_url,
             iconSize: [28, 45],
             iconAnchor: [13, 40]
         });
@@ -489,6 +483,11 @@ export class MapComponent implements AfterViewInit
         {
             if(this.countries[i].properties.guessed)
             {
+                if(this.names_on)
+                {
+                    this.remove_name(this.countries[i]);
+                }
+
                 // Style country on map - param: 0 for "guessed-up" style
                 this.style_country(this.countries[i], 0);
             }
@@ -513,15 +512,15 @@ export class MapComponent implements AfterViewInit
     }
 
     // Confirmation before user refreshes
-    // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void
-    // {
-    //     let result = confirm("Progress will not be saved.");
-    //     if(result)
-    //     {
-    //         // User chooses to leave page...
-    //     }
-    //     // Stay on page
-    //     event.returnValue = false;
-    // }
+    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void
+    {
+        let result = confirm("Progress will not be saved.");
+        if(result)
+        {
+            // User chooses to leave page...
+        }
+        // Stay on page
+        event.returnValue = false;
+    }
 
 }

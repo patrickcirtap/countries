@@ -11,6 +11,11 @@ The map was build using [Leaflet](https://leafletjs.com/) and GeoJSON.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
 
+Due to the large size of the `countries.json` file, the following command needs to be run to allocate more memory (3GB) to Angular for building:
+```
+$ export NODE_OPTIONS="--max-old-space-size=3072"
+```
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 Dependencies:
@@ -21,14 +26,12 @@ $ npm install -D @types/leaflet
 
 $ ng add @angular/material
 
-???
 $ npm install --save @angular/material
 ```
 
-Due to the large size of `countries.json`, the following command needs to be run to allocate more memory (3GB) to Angular for building:
-```
-$ export NODE_OPTIONS="--max-old-space-size=3072"
-```
+- The list of countries that will be loaded into the map is `src/assets/countries.json`.
+- There is also a `src/assets/test_countries.json` which is a small number of countries for faster testing purposes.
+- The `src/assets/big_countries.json` is the final list of all countries, and can be copied into `countries.json` for production.
 
 ## TODO / Look into:
 
