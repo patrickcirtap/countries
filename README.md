@@ -48,7 +48,7 @@ $ export NODE_OPTIONS="--max-old-space-size=3072"
   - Look into how to handle this
     - Perhaps using double quoted HTML template strings ( " + ' ) won't allow for handling name quotes
 
-4. Look into console errorw when popup hint is clicked to be revealed:
+4. Look into console error when popup hint is clicked to be revealed:
   - `ERROR TypeError: el is null`
 
 5. Calculate the `deault_zoom` value for the map dynamically, based on the current window size
