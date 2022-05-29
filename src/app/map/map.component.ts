@@ -1,12 +1,9 @@
 import { Component, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import * as L from 'leaflet';
 import { MatDialog } from '@angular/material/dialog';
 import { GiveupDialogComponent } from './../giveup-dialog/giveup-dialog.component';
+import * as L from 'leaflet';
 
 import import_countries from './../../assets/countries.json';
-
-// Style popup colour with bec with proper ocean background
-// Style give up confirmation dialog with bec
 
 
 @Component({
