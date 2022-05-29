@@ -15,35 +15,6 @@ import import_countries from './../../assets/countries.json';
 // Style give up confirmation dialog with bec
 
 
-
-// Re-clicking hint shows console error?
-
-// Look into text size on different screens
-
-
-// Default zoom based on current screen size?
-
-/*          (width x height)
-    left screen:
-        size: 1920 x 995
-        zoom: 2.85
-
-    right screen:
-        size: 1355 x 955
-        zoom: 2.85
-
-    laptop:
-        size: 761 x 656
-        zoom: 2.35
-
-    Back TV:
-        size: 3275 x 2075
-        zoom: 3.95
-*/
-
-
-
-
 @Component({
     selector: 'app-map',
     templateUrl: './map.component.html',
@@ -55,7 +26,7 @@ export class MapComponent implements AfterViewInit
     public map!: L.Map;
     public map_layer!: any;
     public centroid: L.LatLngExpression = [11, 12];
-    public default_zoom!: number;
+    public default_zoom: number = 2.9;
     // Countries and guessed countries
     public curr_country: string = "";
     public countries: any = import_countries;
@@ -76,20 +47,17 @@ export class MapComponent implements AfterViewInit
 
     initMap()
     {
-        this.default_zoom =  this.calc_default_zoom();
-
-        console.log("SCREEN SIZE: " + window.innerWidth + " x " + window.innerHeight);
-        console.log("DEFLT ZOOM : " + this.default_zoom);
-
         this.map = L.map("map", {
             center: this.centroid,
             zoom: this.default_zoom,
             maxZoom: 9,
             minZoom: 2,
-            // Zoom speed / amount
+            // Forces map zoom to be a multiple of this
             zoomSnap: 0.1,
-            zoomDelta: 0.25,
-            wheelPxPerZoomLevel: 100,
+            // How much the zoom changes after pressing the zoom buttons ( + / - )
+            zoomDelta: 0.2,
+            // How much the zoom changes after scroll-zooming
+            wheelPxPerZoomLevel: 150,
             // Can't scroll past [North-east, South-west]
             maxBounds: [[85, 180], [-85, -180]],
             attributionControl: true
@@ -136,12 +104,6 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
 
         this.initMap();
-    }
-
-    // Calculate map default zoom level based on current window size
-    calc_default_zoom(): number
-    {
-        return 2.85;
     }
 
     // Initial style for all countries
@@ -213,7 +175,7 @@ export class MapComponent implements AfterViewInit
 
     // Determine how wide to make a country's popup,
     // based on the length of it's name or capital city.
-    // This is an approximation based on current font size.
+    // This is an approximation BASED ON CURRENT FONT SIZE.
     // Could be refined, however, different names with the same length
     // could use slightly different amounts of space due to letter widths; (Eg: i vs. w)
     calc_popup_width(len: number): number

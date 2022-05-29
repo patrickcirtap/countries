@@ -44,6 +44,16 @@ $ export NODE_OPTIONS="--max-old-space-size=3072"
     - Couldn't assign the icon object as an attribute of the countries JSON array
 
 3. Names with quotation marks cause HTML string processing problems when displaying hints, due to "breaking" the HTML string too early.
-  - See `country_clicked_init` function for more detail.
+  - See `country_clicked_init` function for more detail
   - Look into how to handle this
     - Perhaps using double quoted HTML template strings ( " + ' ) won't allow for handling name quotes
+
+4. Look into console errorw when popup hint is clicked to be revealed:
+  - `ERROR TypeError: el is null`
+
+5. Calculate the `deault_zoom` value for the map dynamically, based on the current window size
+  - Would be determined based on width if window is wider, or height if window is taller
+  - Note; On really big screens such as a TV, the text will look really small from far away (see next TODO)
+
+6. Add buttons to increase/decrease text size
+  - This would be great for when the map is displayed on a larger screen such as a TV, and users are much further away from the screen
