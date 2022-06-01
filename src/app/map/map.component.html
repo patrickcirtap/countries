@@ -23,7 +23,14 @@
 </div>
 
 <div class="stats">
-    {{ num_countries_guessed }} / {{ countries.length }}
+    <p>{{ num_countries_guessed }} / {{ countries.length }}</p>
+</div>
+
+<div class="info">
+    <input class = "info-button"
+           type = "image"
+           src = "./../../assets/info.png"
+           (click) = "info_clicked()"/>
 </div>
 
 <mat-menu #button_menu="matMenu" xPosition="after" yPosition="below">
@@ -60,6 +67,6 @@
     </button>
 </mat-menu>
 
-<button mat-icon-button [matMenuTriggerFor]="button_menu" class="button-for-menu">
+<button mat-icon-button [matMenuTriggerFor]="button_menu" class="button-for-menu" title="Additional options">
     <mat-icon>menu</mat-icon>
 </button>

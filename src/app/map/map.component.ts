@@ -66,20 +66,20 @@ export class MapComponent implements AfterViewInit
         ////////////////////////////////////////////////////////////////////////////
         // Map Tiles - for testing /////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
-        // var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
-        //     attribution: '',
-        //     noWrap: true,
-        //     maxZoom: 8,
-        //     minZoom: 2,
-        // });
-        // var toners = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}{r}.png', {
-        //     attribution: '',
-        //     noWrap: true,
-        //     maxZoom: 8,
-        //     minZoom: 2,
-        // });
-        // tiles.addTo(this.map);
-        // toners.addTo(this.map);
+        var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+            attribution: '',
+            noWrap: true,
+            maxZoom: 8,
+            minZoom: 2,
+        });
+        var toners = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}{r}.png', {
+            attribution: '',
+            noWrap: true,
+            maxZoom: 8,
+            minZoom: 2,
+        });
+        tiles.addTo(this.map);
+        toners.addTo(this.map);
         ////////////////////////////////////////////////////////////////////////////
         // Map Tiles - for testing /////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -430,6 +430,11 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
     }
 
+    info_clicked(): void
+    {
+        console.log("info clicked");
+    }
+
     // Create popup dialog of GiveupDialog component
     open_giveup_dialog(): void
     {
@@ -509,15 +514,15 @@ export class MapComponent implements AfterViewInit
     }
 
     // Confirmation before user refreshes
-    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void
-    {
-        let result = confirm("Progress will not be saved.");
-        if(result)
-        {
-            // User chooses to leave page...
-        }
-        // Stay on page
-        event.returnValue = false;
-    }
+    // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void
+    // {
+    //     let result = confirm("Progress will not be saved.");
+    //     if(result)
+    //     {
+    //         // User chooses to leave page...
+    //     }
+    //     // Stay on page
+    //     event.returnValue = false;
+    // }
 
 }

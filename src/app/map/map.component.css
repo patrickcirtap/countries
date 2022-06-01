@@ -49,6 +49,23 @@
     top: 25px;
     right: 25px;
 }
+/* info */
+.info
+{
+    /* for being "above" map component */
+    position: absolute;
+    z-index: 1001;
+
+    top: 60px;
+    right: 25px;
+}
+.info-button
+{
+    width: 25px;
+    height: 25px;
+    
+    cursor:pointer;
+}
 
 /* button for menu */
 .button-for-menu
