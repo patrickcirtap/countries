@@ -26,7 +26,7 @@ export class MapComponent implements AfterViewInit
     public countries: any = import_countries;
     public num_countries_guessed: number = 0;
     // Markers for unguessed countries
-    public marker_url: string = './../../assets/marker.png';
+    public marker_url: string = '/assets/marker.png';
     public markers_on: boolean = false;
     public names_on: boolean = true;
     public given_up: boolean = false;
