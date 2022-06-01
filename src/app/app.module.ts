@@ -10,12 +10,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { GiveupDialogComponent } from './giveup-dialog/giveup-dialog.component';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    GiveupDialogComponent
+    GiveupDialogComponent,
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,

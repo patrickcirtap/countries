@@ -1,6 +1,7 @@
 import { Component, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GiveupDialogComponent } from './../giveup-dialog/giveup-dialog.component';
+import { InfoDialogComponent } from './../info-dialog/info-dialog.component';
 import * as L from 'leaflet';
 
 import import_countries from './../../assets/countries.json';
@@ -36,7 +37,7 @@ export class MapComponent implements AfterViewInit
     @ViewChild("entryboxRef") entryboxRef!: ElementRef;
     @ViewChild("giveupRef") giveupRef!: ElementRef;
 
-    constructor(public giveup_dialog: MatDialog) { }
+    constructor(public giveup_dialog: MatDialog, public info_dialog: MatDialog) { }
 
     initMap()
     {
@@ -66,20 +67,20 @@ export class MapComponent implements AfterViewInit
         ////////////////////////////////////////////////////////////////////////////
         // Map Tiles - for testing /////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
-        var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
-            attribution: '',
-            noWrap: true,
-            maxZoom: 8,
-            minZoom: 2,
-        });
-        var toners = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}{r}.png', {
-            attribution: '',
-            noWrap: true,
-            maxZoom: 8,
-            minZoom: 2,
-        });
-        tiles.addTo(this.map);
-        toners.addTo(this.map);
+        // var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+        //     attribution: '',
+        //     noWrap: true,
+        //     maxZoom: 8,
+        //     minZoom: 2,
+        // });
+        // var toners = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}{r}.png', {
+        //     attribution: '',
+        //     noWrap: true,
+        //     maxZoom: 8,
+        //     minZoom: 2,
+        // });
+        // tiles.addTo(this.map);
+        // toners.addTo(this.map);
         ////////////////////////////////////////////////////////////////////////////
         // Map Tiles - for testing /////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -430,9 +431,17 @@ export class MapComponent implements AfterViewInit
         this.entryboxRef.nativeElement.focus();
     }
 
+    // Create info popup dialog
     info_clicked(): void
     {
-        console.log("info clicked");
+        // Only 1 dialog can be open at a time
+        if(this.info_dialog.openDialogs.length == 0)
+        {
+            let info_dialog_ref = this.info_dialog.open(InfoDialogComponent, {
+                width: "430px",
+                height: "220px"
+            });
+        }
     }
 
     // Create popup dialog of GiveupDialog component
@@ -514,15 +523,15 @@ export class MapComponent implements AfterViewInit
     }
 
     // Confirmation before user refreshes
-    // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void
-    // {
-    //     let result = confirm("Progress will not be saved.");
-    //     if(result)
-    //     {
-    //         // User chooses to leave page...
-    //     }
-    //     // Stay on page
-    //     event.returnValue = false;
-    // }
+    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void
+    {
+        let result = confirm("Progress will not be saved.");
+        if(result)
+        {
+            // User chooses to leave page...
+        }
+        // Stay on page
+        event.returnValue = false;
+    }
 
 }
